@@ -13,6 +13,7 @@
     "bot",
     "automation"
   ],
+  "main": "bin/app.js",
   "scripts": {
     "prepublishOnly": "npm run build",
     "build": "tsc",
