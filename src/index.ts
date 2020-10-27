@@ -1,4 +1,4 @@
-import { Application } from 'probot' // eslint-disable-line no-unused-vars
+import { Application } from 'probot'
 
 export = (app: Application) => {
   app.on('issues.opened', async (context) => {

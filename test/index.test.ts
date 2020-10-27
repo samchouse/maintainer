@@ -11,7 +11,7 @@ const issueCreatedBody = { body: 'Thanks for opening this issue!' }
 const fs = require('fs')
 const path = require('path')
 
-const privateKey = fs.readFileSync(path.join(__dirname, 'fixtures/mock-cert.pem'), 'utf-8')
+const privateKey = fs.readFileSync(path.join(__dirname, 'fixtures/maintainer-bot.2020-10-27.private-key.pem'), 'utf-8')
 
 describe('My Probot app', () => {
   let probot: any
@@ -36,7 +36,7 @@ describe('My Probot app', () => {
 
       // Test that we correctly return a test token
       .post('/app/installations/2/access_tokens')
-      .reply(200, { 
+      .reply(200, {
         token: 'test',
         permissions: {
           issues: "write"
