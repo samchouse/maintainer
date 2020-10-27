@@ -34,7 +34,7 @@
     "@octokit/webhooks": "^6.3.2",
     "@types/jest": "25.1.4",
     "@types/node": "latest",
-    "@types/node-fetch": "^1.6.9",
+    "@types/node-fetch": "^2.5.7",
     "@types/prettyjson": "^0.0.29",
     "@types/request": "^2.48.5",
     "apollo-boost": "^0.4.9",
