@@ -49,7 +49,7 @@
     "node-fetch": "^2.6.1",
     "prettyjson": "^1.2.1",
     "request": "^2.88.2",
-    "tslib": "^1.13.0"
+    "tslib": "^2.0.3"
   },
   "devDependencies": {
     "@typescript-eslint/eslint-plugin": "^4.6.0",
