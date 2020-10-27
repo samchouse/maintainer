@@ -109,3 +109,5 @@ lib
 maintainer-bot.2020-10-27.private-key.pem
 
 Dockerfile
+
+.idea
