@@ -13,7 +13,7 @@
 
    # https://help.sider.review/tools/others/misspell
    misspell:
-     targets:
+     target:
        - .
      locale: US
 
