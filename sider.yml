@@ -7,9 +7,6 @@
      config: .eslintrc.json
      ext: ".js,.jsx,.es6,.ts"
      ignore-path: .esltintignore
-     no-ignore: true
-     global: "require,exports:true"
-     quiet: true
 
    # https://help.sider.review/tools/others/misspell
    misspell:
