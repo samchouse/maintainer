@@ -1,0 +1,24 @@
+import { client } from "../graphql/graphql-client";
+import { GetFileContent } from "../graphql/queries/file-query";
+import { GetFileContent as GetFileContentResult } from "../graphql/queries/schema/GetFileContent";
+
+export async function fetchFile(expr: string, limit?: number): Promise<string | undefined> {
+  const info = await client.query<GetFileContentResult>({
+      query: GetFileContent,
+      variables: {
+          name: "DefinitelyTyped",
+          owner: "DefinitelyTyped",
+          expr: `${expr}`
+      }
+  });
+  const obj = info.data.repository?.object;
+  if (!obj || obj.__typename !== "Blob") return undefined;
+  if (!obj) return undefined;
+  if (obj.text && limit && obj.text.length > limit) {
+    return obj.text.substring(0, limit);
+  } else if (obj.byteSize > 3_000_000 && !obj.text) {
+    throw new Error(`Blob too big to fetch: ${expr}`);
+  } else {
+    return obj.text ?? undefined;
+  }
+}
