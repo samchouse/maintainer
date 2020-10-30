@@ -1,0 +1,57 @@
+{
+  "type": "info",
+  "now": "2020-10-29T22:02:09.421Z",
+  "pr_number": 49000,
+  "author": "peterblazejewicz",
+  "dangerLevel": "ScopedAndTested",
+  "headCommitAbbrOid": "412d292",
+  "headCommitOid": "412d2921e2aae331186630d9e89a4df0facde02a",
+  "mergeIsRequested": false,
+  "stalenessInDays": 8,
+  "lastPushDate": "2020-10-21T21:04:20.000Z",
+  "lastCommentDate": "2020-10-21T21:04:20.000Z",
+  "maintainerBlessed": false,
+  "reviewLink": "https://github.com/DefinitelyTyped/DefinitelyTyped/pull/49000/files",
+  "hasMergeConflict": false,
+  "authorIsOwner": true,
+  "isFirstContribution": false,
+  "popularityLevel": "Popular",
+  "pkgInfo": [
+    {
+      "name": "dompurify",
+      "files": [
+        {
+          "path": "types/dompurify/index.d.ts",
+          "kind": "definition"
+        },
+        {
+          "path": "types/dompurify/test/dompurify-namespace-tests.ts",
+          "kind": "test"
+        },
+        {
+          "path": "types/dompurify/test/dompurify-tests.ts",
+          "kind": "test"
+        }
+      ],
+      "owners": [
+        "bazuzi",
+        "FlowCrypt",
+        "Exigerr",
+        "peterblazejewicz"
+      ],
+      "addedOwners": [],
+      "deletedOwners": [
+        "bazuzi",
+        "FlowCrypt",
+        "Exigerr",
+        "peterblazejewicz"
+      ],
+      "popularityLevel": "Popular"
+    }
+  ],
+  "hasDismissedReview": false,
+  "ciResult": "pass",
+  "reviewersWithStaleReviews": [],
+  "approvalFlags": 0,
+  "isChangesRequested": false
+}
