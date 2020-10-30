@@ -58,7 +58,7 @@
     "apollo": "^2.28.3",
     "eslint": "^7.12.1",
     "jest": "26.6.1",
-    "jest-file-snapshot": "^0.3.8",
+    "jest-file-snapshot": "^0.5.0",
     "ts-jest": "^26.1.1"
   },
   "engines": {
