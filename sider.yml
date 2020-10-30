@@ -4,7 +4,7 @@
    # https://help.sider.review/tools/javascript/eslint
    eslint:
      target: .
-     config: .eslintrc.json
+     config: .eslintrc.js
      ext: ".js,.jsx,.es6,.ts"
      ignore-path: .eslintignore
 

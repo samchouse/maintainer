@@ -1,13 +1,17 @@
-const SmeeClient = require('smee-client');
-const express = require('express');
-const bodyParser = require('body-parser');
+if (process.env.WEBHOOK_URL === undefined) {
+    throw Error('WEBHOOK_URL is undefined');
+}
+
+import SmeeClient from 'smee-client';
+import express from 'express';
+import bodyParser from 'body-parser';
 
 const app = express();
 const PORT = 3000;
 
 app.use(bodyParser.json());
 
-app.post('/payload', (req: { body: any }, res: { status: (arg0: number) => { (): any; new(): any; end: { (): void; new(): any } } }) => {
+app.post('/payload', (req, res) => {
     console.log(req.body);
     res.status(200).end();
 });

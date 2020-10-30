@@ -1,7 +1,10 @@
-import fetch, { RequestInit } from 'node-fetch';
+import fetch from 'node-fetch';
 import { ApolloClient } from 'apollo-client';
-import { InMemoryCache, IntrospectionFragmentMatcher } from 'apollo-cache-inmemory';
-import { HttpLink, createHttpLink } from 'apollo-link-http';
+import {
+    InMemoryCache,
+    IntrospectionFragmentMatcher
+} from 'apollo-cache-inmemory';
+import { HttpLink } from 'apollo-link-http';
 import { onError } from 'apollo-link-error';
 import { ApolloLink } from 'apollo-link';
 
@@ -43,10 +46,8 @@ const link = ApolloLink.from([
     new HttpLink({
         uri,
         headers,
-        // @ts-ignore
         fetch
-    }),
-
+    })
 ]);
 
 export const client = new ApolloClient({
@@ -64,6 +65,7 @@ export async function mutate(mutation: Mutation) {
     return await result.text();
 }
 
+// eslint-disable-next-line @typescript-eslint/ban-types
 export function createMutation(query: string, input: object): Mutation {
     return {
         method: 'POST',
@@ -71,19 +73,25 @@ export function createMutation(query: string, input: object): Mutation {
             ...headers,
             'Content-type': 'application/json'
         },
-        body: JSON.stringify({
-            query,
-            variables: input
-        }, undefined, 2)
+        body: JSON.stringify(
+            {
+                query,
+                variables: input
+            },
+            undefined,
+            2
+        )
     };
 }
 
 function getAuthToken() {
     if (process.env.JEST_WORKER_ID) return 'FAKE_TOKEN';
 
-    const result = '234ed6dd788eb47a3c86d066f3b759717ab8838b';
+    const result = 'e2047580907410f11332c7b23706260c0b90155d';
     if (typeof result !== 'string') {
-        throw new Error('Set either BOT_AUTH_TOKEN or AUTH_TOKEN to a valid auth token');
+        throw new Error(
+            'Set either BOT_AUTH_TOKEN or AUTH_TOKEN to a valid auth token'
+        );
     }
     return result.trim();
 }
