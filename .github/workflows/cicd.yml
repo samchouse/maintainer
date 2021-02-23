@@ -6,8 +6,8 @@ on:
   workflow_dispatch:
 
 jobs:
-  coverage:
-    name: Run Code Coverage
+  test:
+    name: Run Tests
     runs-on: ubuntu-latest
 
     strategy:
@@ -26,36 +26,4 @@ jobs:
         run: npm install
 
       - name: Run the tests
-        run: npm run test -- --coverage
-
-      - name: Upload results to Codecov
-        uses: codecov/codecov-action@v1
-        with:
-          token: ${{ secrets.CODECOV_TOKEN }}
-          fail_ci_if_error: true
-          verbose: true
-
-      - name: Run Fossa scan and upload build data
-        uses: fossa-contrib/fossa-action@v1
-        with:
-          fossa-api-key: 724c243ea7d91698c951ce3fbbf929c7
-
-  quality:
-    name: Codacy Analysis CLI
-    runs-on: ubuntu-latest
-    steps:
-      - name: Checkout code
-        uses: actions/checkout@master
-
-      - name: Run Codacy Analysis CLI
-        uses: codacy/codacy-analysis-cli-action@master
-        with:
-          tool: eslint
-          project-token: ${{ secrets.CODACY_TOKEN }}
-          upload: true
-          gh-code-scanning-compat: true
-          max-allowed-issues: 2147483647
-
-  security:
-    name: Run security checks
-    runs-on: ubuntu-latest
+        run: npm run test
