@@ -7,6 +7,7 @@ on:
 
 jobs:
   coverage:
+    name: Run Code Coverage
     runs-on: ubuntu-latest
 
     strategy:
@@ -52,12 +53,9 @@ jobs:
           tool: eslint
           project-token: ${{ secrets.CODACY_TOKEN }}
           upload: true
-          output: results.sarif
-          format: sarif
           gh-code-scanning-compat: true
           max-allowed-issues: 2147483647
 
-      - name: Upload SARIF results file
-        uses: github/codeql-action/upload-sarif@master
-        with:
-          sarif_file: results.sarif
+  security:
+    name: Run security checks
+    runs-on: ubuntu-latest
