@@ -1,27 +1,16 @@
-if (process.env.WEBHOOK_URL === undefined) {
-    throw Error('WEBHOOK_URL is undefined');
-}
-
-import SmeeClient from 'smee-client';
 import express from 'express';
 import bodyParser from 'body-parser';
+import localtunnel from 'localtunnel';
 
-const app = express();
+export const app = express();
 const PORT = 3000;
 
 app.use(bodyParser.json());
 
-app.post('/payload', (req, res) => {
-    console.log(req.body);
-    res.status(200).end();
-});
-
 app.listen(PORT, () => console.log(`Server running on port ${PORT}`));
 
-const smee = new SmeeClient({
-    source: process.env.WEBHOOK_URL,
-    target: 'http://localhost:3000/payload',
-    logger: console
-});
+(async () => {
+    const tunnel = await localtunnel({ port: 3000, subdomain: 'mtbot' });
 
-smee.start();
+    console.log(tunnel.url);
+})();

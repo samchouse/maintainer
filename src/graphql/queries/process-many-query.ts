@@ -1,4 +1,4 @@
-import { gql } from 'apollo-boost';
+import { gql } from '@apollo/client';
 import { client } from '../graphql-client';
 import {
     ProcessManyPRs,
@@ -11,7 +11,7 @@ import {
 
 export const GetProcessManyPRs = gql`
     query ProcessManyPRs($after: String) {
-        repository(owner: "DefinitelyTyped", name: "DefinitelyTyped") {
+        repository(owner: "Xenfo", name: "maintainer-bot") {
             pullRequests(
                 orderBy: { field: UPDATED_AT, direction: DESC }
                 states: [OPEN]
@@ -41,7 +41,6 @@ export async function getProcessManyPRs(startTime: Date, endTime?: Date) {
         >({
             query: GetProcessManyPRs,
             fetchPolicy: 'network-only',
-            fetchResults: true,
             variables: { after }
         });
 

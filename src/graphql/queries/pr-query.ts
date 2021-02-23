@@ -1,4 +1,4 @@
-import { gql } from "apollo-boost";
+import { gql } from '@apollo/client';
 
 // Note: If you want to work on this in a copy of GraphiQL (the IDE-like for GraphQL)
 // - You will need to download the electron app: https://github.com/skevy/graphiql-app
@@ -10,150 +10,164 @@ import { gql } from "apollo-boost";
 
 /** This is a GraphQL AST tree */
 export const GetPRInfo = gql`
-query PR($pr_number: Int!) {
-    repository(owner: "DefinitelyTyped", name: "DefinitelyTyped") {
-      pullRequest(number: $pr_number) {
-        id
-        title
-        createdAt
-        author {
-          login
-        }
-        authorAssociation
-        baseRef {
-          name
-        }
-        changedFiles
-        labels(first: 100) {
-          nodes {
-            name
-          }
-        }
-        isDraft
-        mergeable
-        number
-        state
-        headRefOid
-
-        timelineItems(last: 200, itemTypes: [ISSUE_COMMENT, REOPENED_EVENT, READY_FOR_REVIEW_EVENT,
-                                             MOVED_COLUMNS_IN_PROJECT_EVENT]) {
-          nodes {
-            __typename
-            ... on IssueComment {
-              author { login }
-              createdAt
-            }
-            ... on ReopenedEvent {
-              createdAt
-            }
-            ... on ReadyForReviewEvent {
-              createdAt
-            }
-            ... on MovedColumnsInProjectEvent {
-              actor { login }
-              createdAt
-            }
-          }
-        }
-
-        reviews(last: 100) {
-          nodes {
-            author {
-              login
-            }
-            commit {
-              oid
-              abbreviatedOid
-            }
-            comments(last: 10) {
-              nodes {
-                author {
-                  login
-                }
+    query PR($pr_number: Int!) {
+        repository(owner: "Xenfo", name: "maintainer-bot") {
+            pullRequest(number: $pr_number) {
+                id
+                title
                 createdAt
-              }
-            }
-            authorAssociation
-            state
-            submittedAt
-            url
-          }
-        }
-
-        commits(last: 100) {
-          totalCount
-          nodes {
-            commit {
-              checkSuites(first: 100) {
-                nodes {
-                  app {
+                author {
+                    login
+                }
+                authorAssociation
+                baseRef {
                     name
-                  }
-                  conclusion
-                  resourcePath
-                  status
-                  url
                 }
-              }
-              status {
+                changedFiles
+                labels(first: 100) {
+                    nodes {
+                        name
+                    }
+                }
+                isDraft
+                mergeable
+                number
                 state
-                contexts {
-                  state
-                  description
-                  creator { login }
-                  targetUrl
+                headRefOid
+
+                timelineItems(
+                    last: 200
+                    itemTypes: [
+                        ISSUE_COMMENT
+                        REOPENED_EVENT
+                        READY_FOR_REVIEW_EVENT
+                        MOVED_COLUMNS_IN_PROJECT_EVENT
+                    ]
+                ) {
+                    nodes {
+                        __typename
+                        ... on IssueComment {
+                            author {
+                                login
+                            }
+                            createdAt
+                        }
+                        ... on ReopenedEvent {
+                            createdAt
+                        }
+                        ... on ReadyForReviewEvent {
+                            createdAt
+                        }
+                        ... on MovedColumnsInProjectEvent {
+                            actor {
+                                login
+                            }
+                            createdAt
+                        }
+                    }
                 }
-              }
-              authoredDate
-              committedDate
-              pushedDate
-              abbreviatedOid
-              oid
-            }
-          }
-        }
 
-        comments(first: 100) {
-          totalCount
-          nodes {
-            id
-            author {
-              login
-            }
-            body
-            createdAt
-            reactions(first: 100, content: THUMBS_UP) {
-              nodes {
-                user { login }
-              }
-            }
-          }
-        }
+                reviews(last: 100) {
+                    nodes {
+                        author {
+                            login
+                        }
+                        commit {
+                            oid
+                            abbreviatedOid
+                        }
+                        comments(last: 10) {
+                            nodes {
+                                author {
+                                    login
+                                }
+                                createdAt
+                            }
+                        }
+                        authorAssociation
+                        state
+                        submittedAt
+                        url
+                    }
+                }
 
-        files(first: 100) {
-          nodes {
-            path
-            additions
-            deletions
-          }
-        }
+                commits(last: 100) {
+                    totalCount
+                    nodes {
+                        commit {
+                            checkSuites(first: 100) {
+                                nodes {
+                                    app {
+                                        name
+                                    }
+                                    conclusion
+                                    resourcePath
+                                    status
+                                    url
+                                }
+                            }
+                            status {
+                                state
+                                contexts {
+                                    state
+                                    description
+                                    creator {
+                                        login
+                                    }
+                                    targetUrl
+                                }
+                            }
+                            authoredDate
+                            committedDate
+                            pushedDate
+                            abbreviatedOid
+                            oid
+                        }
+                    }
+                }
 
-        projectCards(first: 10) {
-          nodes {
-            id
-            project {
-              id
-              number
-              name
-            }
-            column {
-              id
-              name
-            }
-          }
-        }
+                comments(first: 100) {
+                    totalCount
+                    nodes {
+                        id
+                        author {
+                            login
+                        }
+                        body
+                        createdAt
+                        reactions(first: 100, content: THUMBS_UP) {
+                            nodes {
+                                user {
+                                    login
+                                }
+                            }
+                        }
+                    }
+                }
 
-      }
+                files(first: 100) {
+                    nodes {
+                        path
+                        additions
+                        deletions
+                    }
+                }
+
+                projectCards(first: 10) {
+                    nodes {
+                        id
+                        project {
+                            id
+                            number
+                            name
+                        }
+                        column {
+                            id
+                            name
+                        }
+                    }
+                }
+            }
+        }
     }
-  }
-  `;
+`;

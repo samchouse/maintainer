@@ -6,7 +6,7 @@ module.exports = {
             url: 'https://api.github.com/graphql',
             headers: {
                 authorization:
-                    'Bearer e2047580907410f11332c7b23706260c0b90155d',
+                    'Bearer 3d0670217bbe876905e96385bba2742cb22cc96c',
                 accept: 'application/vnd.github.antiope-preview+json'
             },
             includes: ['./src/graphql/queries']

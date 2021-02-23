@@ -1,4 +1,4 @@
-import { gql } from 'apollo-boost';
+import { gql } from '@apollo/client';
 import { client } from '../graphql-client';
 import {
     GetAllOpenPRsAndCardIDs,
@@ -7,7 +7,7 @@ import {
 
 export const getAllOpenPRsAndCardIDsQuery = gql`
     query GetAllOpenPRsAndCardIDs($after: String) {
-        repository(owner: "DefinitelyTyped", name: "DefinitelyTyped") {
+        repository(owner: "Xenfo", name: "maintainer-bot") {
             pullRequests(
                 orderBy: { field: UPDATED_AT, direction: DESC }
                 states: [OPEN]
@@ -46,7 +46,6 @@ export async function getAllOpenPRsAndCardIDs(): Promise<{
         >({
             query: getAllOpenPRsAndCardIDsQuery,
             fetchPolicy: 'network-only',
-            fetchResults: true,
             variables: { after }
         });
 

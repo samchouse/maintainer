@@ -1,13 +1,12 @@
+import { Actions } from './compute-issue-actions';
 import {
-    PR as PRQueryResult,
-    PR_repository_pullRequest
-} from '../graphql/queries/schema/PR';
-import { Actions } from './compute-pr-actions';
+    Issue as IssueQueryResult,
+    Issue_repository_issue
+} from '../graphql/queries/schema/Issue';
 import { Mutation } from '../definitions/interfaces/interfaces';
 import { createMutation, mutate } from '../graphql/graphql-client';
-import { getProjectBoardColumns, getLabels } from '../utils/cacheQueries';
+import { getLabels, getProjectBoardColumns } from '../utils/cacheQueries';
 
-// https://github.com/DefinitelyTyped/DefinitelyTyped/projects/5
 const ProjectBoardNumber = 1;
 
 const addComment = `mutation($input: AddCommentInput!) { addComment(input: $input) { clientMutationId } }`;
@@ -15,35 +14,40 @@ const deleteComment = `mutation($input: DeleteIssueCommentInput!) { deleteIssueC
 const editComment = `mutation($input: UpdateIssueCommentInput!) { updateIssueComment(input: $input) { clientMutationId } }`;
 const addLabels = `mutation($input: AddLabelsToLabelableInput!) { addLabelsToLabelable(input: $input) { clientMutationId } }`;
 const removeLabels = `mutation($input: RemoveLabelsFromLabelableInput!) { removeLabelsFromLabelable(input: $input) { clientMutationId } }`;
-export const mergePr = `mutation($input: MergePullRequestInput!) { mergePullRequest(input: $input) { clientMutationId } }`;
-const closePr = `mutation($input: ClosePullRequestInput!) { closePullRequest(input: $input) { clientMutationId } }`;
+const closeIssue = `mutation($input: CloseIssueInput!) { closeIssue(input: $input) { clientMutationId } }`;
 
 const addProjectCard = `mutation($input: AddProjectCardInput!) { addProjectCard(input: $input) { clientMutationId } }`;
 const moveProjectCard = `mutation($input: MoveProjectCardInput!) { moveProjectCard(input: $input) { clientMutationId } }`;
 const deleteProjectCard = `mutation($input: DeleteProjectCardInput!) { deleteProjectCard(input: $input) { clientMutationId } }`;
 
-export async function executePrActions(
+export async function executeIssueActions(
     actions: Actions,
-    info: PRQueryResult,
+    info: IssueQueryResult,
     dry?: boolean
 ): Promise<string[]> {
-    const pr = info.repository?.pullRequest!;
+    const issue = info.repository?.issue!;
 
     let mutations: Mutation[] = [];
 
-    const labelMutations = await getMutationsForLabels(actions, pr);
+    const labelMutations = await getMutationsForLabels(actions, issue);
     mutations = mutations.concat(labelMutations);
 
-    const projectMutations = await getMutationsForProjectChanges(actions, pr);
+    const projectMutations = await getMutationsForProjectChanges(
+        actions,
+        issue
+    );
     mutations = mutations.concat(projectMutations);
 
-    const commentMutations = getMutationsForComments(actions, pr);
+    const commentMutations = getMutationsForComments(actions, issue);
     mutations = mutations.concat(commentMutations);
 
-    const commentRemovalMutations = getMutationsForCommentRemovals(actions, pr);
+    const commentRemovalMutations = getMutationsForCommentRemovals(
+        actions,
+        issue
+    );
     mutations = mutations.concat(commentRemovalMutations);
 
-    const prStateMutations = getMutationsForChangingPRState(actions, pr);
+    const prStateMutations = getMutationsForChangingIssueState(actions, issue);
     mutations = mutations.concat(prStateMutations);
 
     if (!dry) {
@@ -61,9 +65,9 @@ const suffix = '-->';
 
 async function getMutationsForLabels(
     actions: Actions,
-    pr: PR_repository_pullRequest
+    issue: Issue_repository_issue
 ) {
-    const labels = pr.labels?.nodes!;
+    const labels = issue.labels?.nodes!;
     const mutations: Mutation[] = [];
     const labelsToAdd: string[] = [];
     const labelsToRemove: string[] = [];
@@ -88,7 +92,7 @@ async function getMutationsForLabels(
 
         mutations.push(
             createMutation(addLabels, {
-                input: { labelIds, labelableId: pr.id }
+                input: { labelIds, labelableId: issue.id }
             })
         );
     }
@@ -101,7 +105,7 @@ async function getMutationsForLabels(
 
         mutations.push(
             createMutation(removeLabels, {
-                input: { labelIds, labelableId: pr.id }
+                input: { labelIds, labelableId: issue.id }
             })
         );
     }
@@ -111,12 +115,12 @@ async function getMutationsForLabels(
 
 async function getMutationsForProjectChanges(
     actions: Actions,
-    pr: PR_repository_pullRequest
+    issue: Issue_repository_issue
 ) {
     const mutations: Mutation[] = [];
 
     if (actions.shouldRemoveFromActiveColumns) {
-        const card = pr.projectCards.nodes?.find(
+        const card = issue.projectCards.nodes?.find(
             (card) => card?.project.number === ProjectBoardNumber
         );
         if (card && card.column?.name !== 'Recently Merged') {
@@ -135,7 +139,7 @@ async function getMutationsForProjectChanges(
 
     // Create a project card if needed, otherwise move if needed
     if (actions.targetColumn) {
-        const extantCard = pr.projectCards.nodes?.find(
+        const extantCard = issue.projectCards.nodes?.find(
             (n) => !!n?.column && n.project.number === ProjectBoardNumber
         );
         const targetColumnId = await getProjectBoardColumnIdByName(
@@ -156,7 +160,7 @@ async function getMutationsForProjectChanges(
             mutations.push(
                 createMutation(addProjectCard, {
                     input: {
-                        contentId: pr.id,
+                        contentId: issue.id,
                         projectColumnId: targetColumnId
                     }
                 })
@@ -168,12 +172,12 @@ async function getMutationsForProjectChanges(
 
 function getMutationsForComments(
     actions: Actions,
-    pr: PR_repository_pullRequest
+    issue: Issue_repository_issue
 ) {
     const mutations: Mutation[] = [];
     for (const wantedComment of actions.responseComments) {
         let exists = false;
-        for (const actualComment of pr.comments.nodes ?? []) {
+        for (const actualComment of issue.comments.nodes ?? []) {
             if (actualComment?.author?.login !== 'typescript-bot') continue;
             const parsed = parseComment(actualComment.body);
             if (parsed?.tag !== wantedComment.tag) continue;
@@ -194,7 +198,7 @@ function getMutationsForComments(
             mutations.push(
                 createMutation(addComment, {
                     input: {
-                        subjectId: pr.id,
+                        subjectId: issue.id,
                         body: makeComment(
                             wantedComment.status,
                             wantedComment.tag
@@ -210,14 +214,14 @@ function getMutationsForComments(
 
 function getMutationsForCommentRemovals(
     actions: Actions,
-    pr: PR_repository_pullRequest
+    issue: Issue_repository_issue
 ) {
     const mutations: Mutation[] = [];
 
     const ciMessageToKeep = actions.responseComments.find((c) =>
         c.tag.startsWith('ci-complaint')
     );
-    const botComments = (pr.comments.nodes ?? []).filter(
+    const botComments = (issue.comments.nodes ?? []).filter(
         (comment) => comment?.author?.login === 'typescript-bot'
     );
     for (const comment of botComments) {
@@ -232,42 +236,20 @@ function getMutationsForCommentRemovals(
                 createMutation(deleteComment, { input: { id: comment.id } })
             );
         }
-
-        // It used to be mergable, but now it is not, remove those comments
-        if (parsed.tag === 'merge-offer' && !actions.isReadyForAutoMerge) {
-            mutations.push(
-                createMutation(deleteComment, { input: { id: comment.id } })
-            );
-        }
     }
 
     return mutations;
 }
 
-function getMutationsForChangingPRState(
+function getMutationsForChangingIssueState(
     actions: Actions,
-    pr: PR_repository_pullRequest
+    issue: Issue_repository_issue
 ) {
     const mutations: Mutation[] = [];
 
-    if (actions.shouldMerge) {
-        mutations.push(
-            createMutation(mergePr, {
-                input: {
-                    commitHeadline: `🤖 Merge PR #${pr.number} ${
-                        pr.title
-                    } by @${pr.author?.login ?? '(ghost)'}`,
-                    expectedHeadOid: pr.headRefOid,
-                    mergeMethod: 'SQUASH',
-                    pullRequestId: pr.id
-                }
-            })
-        );
-    }
-
     if (actions.shouldClose) {
         mutations.push(
-            createMutation(closePr, { input: { pullRequestId: pr.id } })
+            createMutation(closeIssue, { input: { pullRequestId: issue.id } })
         );
     }
     return mutations;

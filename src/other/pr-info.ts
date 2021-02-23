@@ -12,7 +12,7 @@ import {
     PR_repository_pullRequest_timelineItems_nodes_MovedColumnsInProjectEvent,
     PR_repository_pullRequest_comments_nodes
 } from '../graphql/queries/schema/PR';
-import { CIResult } from '../definitions/enums/CIResult';
+import { CIResult } from '../definitions/enums/enums';
 import {
     PullRequestReviewState,
     CommentAuthorAssociation,
@@ -20,7 +20,7 @@ import {
 } from '../graphql/queries/graphql-global-types';
 import { getMonthlyDownloadCount } from '../utils/npm';
 import { client } from '../graphql/graphql-client';
-import { ApolloQueryResult } from 'apollo-boost';
+import { ApolloQueryResult } from '@apollo/client';
 import { fetchFile as defaultFetchFile } from '../utils/fetchFile';
 import {
     noNulls,
@@ -227,8 +227,7 @@ export async function queryPRInfo(prNumber: number) {
         variables: {
             pr_number: prNumber
         },
-        fetchPolicy: 'network-only',
-        fetchResults: true
+        fetchPolicy: 'network-only'
     });
 }
 

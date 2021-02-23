@@ -14,7 +14,11 @@ export function createCache() {
         return value;
     }
 
-    async function getAsync<T>(key: string, timeoutMs: number, produce: () => Promise<T>): Promise<T> {
+    async function getAsync<T>(
+        key: string,
+        timeoutMs: number,
+        produce: () => Promise<T>
+    ): Promise<T> {
         if (key in store) {
             if (lifetimes[key] > Date.now()) {
                 return store[key];

@@ -1,10 +1,13 @@
 import chalk from 'chalk';
 import { chalkPresets } from './utils/chalk-presets';
 
-export const config = Object.assign({}, {
-    handlers: ['load-env', 'start-webhook'],
-    utils: ['chalk-presets']
-});
+export const config = Object.assign(
+    {},
+    {
+        handlers: ['load-env', 'start-webhook', 'webhook-receiver'],
+        utils: ['chalk-presets']
+    }
+);
 
 (async () => {
     const handlers = config.handlers;
@@ -15,7 +18,11 @@ export const config = Object.assign({}, {
             await require(`./handlers/${handler}`);
         } catch (err) {
             console.error(err);
-            console.error(`${chalkPresets.error('Failed')} loading handler ${chalk.bold(handler)}`);
+            console.error(
+                `${chalkPresets.error('Failed')} loading handler ${chalk.bold(
+                    handler
+                )}`
+            );
         }
     }
 })();

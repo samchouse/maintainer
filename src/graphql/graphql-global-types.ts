@@ -46,6 +46,14 @@ export enum CommentAuthorAssociation {
 }
 
 /**
+ * The possible states of an issue.
+ */
+export enum IssueState {
+  CLOSED = "CLOSED",
+  OPEN = "OPEN",
+}
+
+/**
  * Whether or not a PullRequest can be merged.
  */
 export enum MergeableState {

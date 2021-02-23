@@ -7,7 +7,7 @@ import {
     BotNoPackages,
     pkgInfoAllOwners
 } from '../other/pr-info';
-import { CIResult } from '../definitions/enums/CIResult';
+import { CIResult } from '../definitions/enums/enums';
 import { noNulls } from '../utils/utilFunctions';
 
 type ColumnName =

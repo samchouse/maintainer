@@ -1,28 +1,30 @@
-import { gql } from "apollo-boost";
+import { gql } from '@apollo/client';
 
 export const GetLabels = gql`
-query GetLabels {
-  repository(name:"DefinitelyTyped", owner:"DefinitelyTyped") {
-    labels(first: 100) {
-      nodes {
-        id
-        name
-      }
+    query GetLabels {
+        repository(name: "Xenfo", owner: "maintainer-bot") {
+            labels(first: 100) {
+                nodes {
+                    id
+                    name
+                }
+            }
+        }
     }
-  }
-}`;
+`;
 
 export const GetProjectColumns = gql`
-query GetProjectColumns {
-  repository(name:"DefinitelyTyped", owner:"DefinitelyTyped") {
-    project(number: 5) {
-      id
-      columns(first: 30) {
-        nodes {
-          id
-          name
+    query GetProjectColumns {
+        repository(name: "Xenfo", owner: "maintainer-bot") {
+            project(number: 1) {
+                id
+                columns(first: 30) {
+                    nodes {
+                        id
+                        name
+                    }
+                }
+            }
         }
-      }
     }
-  }
-}`;
+`;
