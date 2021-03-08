@@ -62,7 +62,7 @@
     "@types/express": "^4.17.9",
     "@types/jest": "26.0.15",
     "@types/localtunnel": "^2.0.0",
-    "@types/node": "^14.14.13",
+    "@types/node": "^14.14.32",
     "@types/node-fetch": "^2.5.7",
     "@types/prettyjson": "^0.0.29",
     "@types/request": "^2.48.5",
