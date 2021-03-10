@@ -73,7 +73,7 @@
     "apollo": "^2.31.2",
     "eslint": "^7.21.0",
     "eslint-config-prettier": "^6.15.0",
-    "jest": "26.6.1",
+    "jest": "26.6.3",
     "jest-file-snapshot": "^0.5.0",
     "localtunnel": "^2.0.0",
     "nock": "^13.0.11",
