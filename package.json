@@ -63,7 +63,7 @@
     "@types/jest": "26.0.15",
     "@types/localtunnel": "^2.0.0",
     "@types/node": "^14.14.33",
-    "@types/node-fetch": "^2.5.7",
+    "@types/node-fetch": "^2.5.8",
     "@types/prettyjson": "^0.0.29",
     "@types/request": "^2.48.5",
     "@types/shelljs": "^0.8.8",
