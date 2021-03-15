@@ -34,7 +34,7 @@
   "dependencies": {
     "@apollo/client": "^3.3.11",
     "@octokit/rest": "^18.3.5",
-    "@octokit/webhooks": "^8.5.3",
+    "@octokit/webhooks": "^8.5.4",
     "body-parser": "^1.19.0",
     "boxen": "^5.0.0",
     "chalk": "^4.1.0",
