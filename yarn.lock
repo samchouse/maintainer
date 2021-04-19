@@ -888,10 +888,10 @@
   resolved "https://registry.yarnpkg.com/@octokit/webhooks-methods/-/webhooks-methods-1.0.0.tgz#274799138725c89a3466e3af2026afe755f28c4b"
   integrity sha512-pVceMQcj9SZ5p2RkemL0TuuPdGULNQj9F3Pq1cNM1xH+Kst1VNt0dj3PEGZRZV473njrDnYdi/OG4wWY9TLbbA==
 
-"@octokit/webhooks@^9.0.0":
-  version "9.0.0"
-  resolved "https://registry.yarnpkg.com/@octokit/webhooks/-/webhooks-9.0.0.tgz#ea38870e4fe761d2a5564ddf5bf9f888bf91e748"
-  integrity sha512-r8ZTnYAOZydrhRMnDonAVdeOl4IhK144UD+Vw8GUZCHurZxwO88VhoxV02omz2dm41h07EDo77i4H/A1DZ+0LQ==
+"@octokit/webhooks@^9.0.1":
+  version "9.0.1"
+  resolved "https://registry.yarnpkg.com/@octokit/webhooks/-/webhooks-9.0.1.tgz#f2e726eec5705ccd0961cf3db9185587b669219e"
+  integrity sha512-t7dRsS97fRN5V9kqh2UpRPheRWTgbgzUOJju0fttVKrEjkdbKyTNV3U/AoK9FyKz2wABr3uBIUM9sFfNxCcw/Q==
   dependencies:
     "@octokit/request-error" "^2.0.2"
     "@octokit/webhooks-definitions" "3.67.3"
