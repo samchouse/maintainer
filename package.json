@@ -32,7 +32,7 @@
     "install-cli": "npm run build && npm install -g ."
   },
   "dependencies": {
-    "@apollo/client": "^3.3.18",
+    "@apollo/client": "^3.3.21",
     "@octokit/rest": "^18.5.3",
     "@octokit/webhooks": "^9.6.1",
     "body-parser": "^1.19.0",
