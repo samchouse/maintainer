@@ -900,24 +900,24 @@
   dependencies:
     "@octokit/openapi-types" "^7.0.0"
 
-"@octokit/webhooks-methods@^1.0.0":
-  version "1.0.0"
-  resolved "https://registry.yarnpkg.com/@octokit/webhooks-methods/-/webhooks-methods-1.0.0.tgz#274799138725c89a3466e3af2026afe755f28c4b"
-  integrity sha512-pVceMQcj9SZ5p2RkemL0TuuPdGULNQj9F3Pq1cNM1xH+Kst1VNt0dj3PEGZRZV473njrDnYdi/OG4wWY9TLbbA==
+"@octokit/webhooks-methods@^2.0.0":
+  version "2.0.0"
+  resolved "https://registry.yarnpkg.com/@octokit/webhooks-methods/-/webhooks-methods-2.0.0.tgz#1108b9ea661ca6c81e4a8bfa63a09eb27d5bc2db"
+  integrity sha512-35cfQ4YWlnZnmZKmIxlGPUPLtbkF8lr/A/1Sk1eC0ddLMwQN06dOuLc+dI3YLQS+T+MoNt3DIQ0NynwgKPilig==
 
-"@octokit/webhooks-types@3.75.0":
-  version "3.75.0"
-  resolved "https://registry.yarnpkg.com/@octokit/webhooks-types/-/webhooks-types-3.75.0.tgz#6301226143c9d0a96972b6c27b17d929a98ca5d3"
-  integrity sha512-vQkYwpCNX816UJiMssnEr4jWlVXmmd6kOpcmNdEQ6646Lh6kYeNBP6C2tVOAoCcs7/xK2sGf8qOJ5rT3QGL62w==
+"@octokit/webhooks-types@4.4.0":
+  version "4.4.0"
+  resolved "https://registry.yarnpkg.com/@octokit/webhooks-types/-/webhooks-types-4.4.0.tgz#0985964b72d577221574cca614770e0743fe0830"
+  integrity sha512-gK9L2pWLZ1CWWlf9zwzFBQeA3dgyWdRe6gqAedR5T7adFZpoHg4De6GeXIFySV796ooQtKhW4eFfQLFQF5ydAA==
 
-"@octokit/webhooks@^9.6.1":
-  version "9.6.1"
-  resolved "https://registry.yarnpkg.com/@octokit/webhooks/-/webhooks-9.6.1.tgz#a7686edcf0c0a08257dd4590344e8c7a73fb6866"
-  integrity sha512-RIVpKDmNaCMgiSnCzDmw/GTOyLvpDHfNVxJvQWRG8EsPhTF1fXsaxHkyR1unX8v5xPr/cRjoIstEPSiXyd31Aw==
+"@octokit/webhooks@^9.13.0":
+  version "9.13.0"
+  resolved "https://registry.yarnpkg.com/@octokit/webhooks/-/webhooks-9.13.0.tgz#b61c275671a36322fbd920c4b288caf4f12d9735"
+  integrity sha512-rQLItw2HrDEtouR7js5KU0r2e+8uBWFIuREgICTtz93rppk7+WQKCceQoHiEWY7vqXV7R3d1Uho6jZmbOOjg+A==
   dependencies:
     "@octokit/request-error" "^2.0.2"
-    "@octokit/webhooks-methods" "^1.0.0"
-    "@octokit/webhooks-types" "3.75.0"
+    "@octokit/webhooks-methods" "^2.0.0"
+    "@octokit/webhooks-types" "4.4.0"
     aggregate-error "^3.1.0"
 
 "@samverschueren/stream-to-observable@^0.3.0":
