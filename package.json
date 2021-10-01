@@ -59,7 +59,7 @@
     "webport": "^1.0.0"
   },
   "devDependencies": {
-    "@types/express": "^4.17.11",
+    "@types/express": "^4.17.13",
     "@types/jest": "26.0.23",
     "@types/localtunnel": "^2.0.0",
     "@types/node": "^16.10.2",
