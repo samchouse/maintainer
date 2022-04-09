@@ -47,7 +47,7 @@
     "fast-json-patch": "^3.0.0-1",
     "graphql": "^15.5.0",
     "idembot": "^0.0.12",
-    "moment": "^2.27.0",
+    "moment": "^2.29.2",
     "node-cache": "^5.1.2",
     "node-fetch": "^2.6.1",
     "prettyjson": "^1.2.1",
